@@ -16,8 +16,10 @@ const Home = () => {
   const [userData, setUserData] = useState<UserData | null>(null)
 
   useEffect(() => {
-    if (WebApp.initDataUnsafe.user) {
-      setUserData(WebApp.initDataUnsafe.user as UserData);
+    if (typeof window !== "undefined") {
+      if (WebApp.initDataUnsafe.user) {
+        setUserData(WebApp.initDataUnsafe.user as UserData);
+      }
     }
   }, []);
 
