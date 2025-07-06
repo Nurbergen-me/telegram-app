@@ -9,6 +9,7 @@ interface CityDetailProps {
 const CityDetails = async({ params }: CityDetailProps ) => {
     const {id} = await params
     const currentCity = cities.find((city: City) => city.id === id)
+
     return (
         <main>
             {currentCity && (

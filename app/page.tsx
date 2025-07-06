@@ -9,22 +9,14 @@ const Home = () => {
   const [userData, setUserData] = useState<UserData | null>(null)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (WebApp.initDataUnsafe.user) {
-          WebApp.disableVerticalSwipes()
-          WebApp.enableClosingConfirmation()
+    if (typeof window !== "undefined" && WebApp.initDataUnsafe.user) {
+        WebApp.disableVerticalSwipes()
         setUserData(WebApp.initDataUnsafe.user as UserData);
-      }
     }
   }, []);
 
     return (
         <main>
-            {/*{userData && (*/}
-            {/*    <h1 className="text-2xl">*/}
-            {/*        {userData?.first_name}*/}
-            {/*    </h1>*/}
-            {/*)}*/}
           <CityList title="For You" cities={cities} userData={userData} />
           <CityList title="Most popular" cities={cities.toReversed()} userData={userData} />
         </main>
