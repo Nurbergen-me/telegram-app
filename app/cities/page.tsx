@@ -1,12 +1,18 @@
 'use client'
 
-import React from 'react'
+import React, {useEffect} from 'react'
 import {cities} from "@/constants";
 import CityList from "@/components/cityList";
-import {useBackButtonSupport} from "@/hooks/useBackButtonHistory";
+import WebApp from "@twa-dev/sdk";
+import {router} from "next/client";
 
 const Page = () => {
-    useBackButtonSupport();
+    useEffect(() => {
+        if (typeof window !== "undefined" && WebApp.initDataUnsafe.user) {
+            WebApp.BackButton.show()
+            WebApp.BackButton.onClick(() => router.push("/"))
+        }
+    }, []);
 
     return (
         <main>
