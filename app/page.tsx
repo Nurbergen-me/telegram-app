@@ -11,7 +11,9 @@ const Home = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (WebApp.initDataUnsafe.user) {
-        console.log(WebApp.initDataUnsafe)
+          WebApp.isFullscreen = true
+          WebApp.disableVerticalSwipes()
+          WebApp.enableClosingConfirmation()
         setUserData(WebApp.initDataUnsafe.user as UserData);
       }
     }
@@ -19,6 +21,11 @@ const Home = () => {
 
     return (
         <main>
+            {userData && (
+                <h1 className="text-2xl">
+                    {userData?.first_name}
+                </h1>
+            )}
           <CityList title="For You" cities={cities} userData={userData} />
           <CityList title="Most popular" cities={cities.toReversed()} userData={userData} />
         </main>
