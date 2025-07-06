@@ -4,15 +4,25 @@ import React, {useEffect} from 'react'
 import {cities} from "@/constants";
 import CityList from "@/components/cityList";
 import WebApp from "@twa-dev/sdk";
-import {router} from "next/client";
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
+    const router = useRouter();
+
     useEffect(() => {
-        if (typeof window !== "undefined" && WebApp.initDataUnsafe.user) {
-            WebApp.BackButton.show()
-            WebApp.BackButton.onClick(() => router.push("/"))
+        if (typeof window !== 'undefined' && WebApp.initDataUnsafe.user) {
+            WebApp.ready();
+            WebApp.BackButton.show();
+            const handleBack = () => {
+                router.push('/');
+            };
+            WebApp.BackButton.onClick(handleBack);
+
+            return () => {
+                WebApp.BackButton.offClick(handleBack);
+            };
         }
-    }, []);
+    }, [router]);
 
     return (
         <main>
