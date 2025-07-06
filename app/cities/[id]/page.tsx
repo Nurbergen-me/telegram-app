@@ -1,18 +1,13 @@
 'use client'
 
-import React, {useEffect} from 'react'
+import React from 'react'
 import {cities} from "@/constants";
 import Image from "next/image";
 import {useParams} from "next/navigation";
-import WebApp from "@twa-dev/sdk";
-import {router} from "next/client";
+import {useBackButtonSupport} from "@/hooks/useBackButtonHistory";
 
 const CityDetails = () => {
-    useEffect(() => {
-        if (typeof window !== "undefined" && WebApp.initDataUnsafe.user) {
-            WebApp.BackButton.show().onClick(router.back)
-        }
-    }, []);
+    useBackButtonSupport();
 
     const {id} = useParams();
     const currentCity = cities.find((city: City) => city.id === id)
